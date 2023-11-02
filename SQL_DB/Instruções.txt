@@ -1,0 +1,14 @@
+1 - Abrir o XAMPP
+2 - Carregar MySQL e Apache
+3 - Clicar em Admin para o MySQL no XAMPP
+4 - Clicar em Servidor: 127.0.0.1 na parte superior da pagina
+5 - Clicar em SQL na parte superior da pagina
+6 - Digitar o comando: CREATE DATABASE supermercado
+7 - Clicar em Executar
+8 - No menu da lateral esquerda, clique no banco de dados "supermercado"
+9 - Clique em Importar na parte superior da pagina
+10 - Clique em Escolher arquivo
+11 - Carregue o arquivo "supermercado.sql"
+12 - Clique em Importar na parte inferior da pagina
+
+

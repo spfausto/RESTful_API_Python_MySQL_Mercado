@@ -8,7 +8,7 @@ def consultar():
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT id_fabricante, id_produto, codigodebarras, nome_produto, categoria, peso, disponibilidade, valor FROM produtos")
+        cursor.execute("SELECT id_produto, categoria, codigodebarras, descricao_produto, marca_produto, nome_mercado, valor_produto FROM produtos")
         empRows = cursor.fetchall()
         response = jsonify(empRows)
         response.status_code = 200
@@ -24,7 +24,7 @@ def consultarporid(id):
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT id_fabricante, id_produto, codigodebarras, nome_produto, categoria, peso, disponibilidade, valor FROM produtos WHERE id_produto =%s", id)
+        cursor.execute("SELECT id_produto, categoria, codigodebarras, descricao_produto, marca_produto, nome_mercado, valor_produto FROM produtos WHERE id_produto =%s", id)
         empRow = cursor.fetchone()
         response = jsonify(empRow)
         response.status_code = 200
@@ -39,19 +39,18 @@ def consultarporid(id):
 def cadastrar():
     try:        
         _json = request.json
-        _id_fabricante = _json['id_fabricante']
-        _codigodebarras = _json['codigodebarras']
-        _nome_produto = _json['nome_produto']
         _categoria = _json['categoria']
-        _peso = _json['peso']
-        _disponibilidade = _json['disponibilidade']
-        _valor = _json['valor']
+        _codigodebarras = _json['codigodebarras']
+        _descricao_produto = _json['descricao_produto']
+        _marca_produto = _json['marca_produto']
+        _nome_mercado = _json['nome_mercado']
+        _valor_produto = _json['valor_produto']
 
-        if _id_fabricante and _codigodebarras and _nome_produto and _categoria and _peso and _disponibilidade and _valor and request.method == 'POST':
+        if _categoria and _codigodebarras and _descricao_produto and _marca_produto and _nome_mercado and _valor_produto and request.method == 'POST':
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)		
-            sqlQuery = "INSERT INTO produtos (id_fabricante, codigodebarras, nome_produto, categoria, peso, disponibilidade, valor) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-            bindData = (_id_fabricante, _codigodebarras, _nome_produto, _categoria, _peso, _disponibilidade, _valor)            
+            sqlQuery = "INSERT INTO produtos (categoria, codigodebarras, descricao_produto, marca_produto, nome_mercado, valor_produto) VALUES (%s, %s, %s, %s, %s, %s)"
+            bindData = (_categoria, _codigodebarras, _descricao_produto, _marca_produto, _nome_mercado, _valor_produto)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
             response = jsonify('Produto adicionado com sucesso!')
@@ -69,18 +68,17 @@ def cadastrar():
 def atualizar():
     try:
         _json = request.json
-        _id_fabricante = _json['id_fabricante']
         _id_produto = _json['id_produto']
-        _codigodebarras = _json['codigodebarras']
-        _nome_produto = _json['nome_produto']
         _categoria = _json['categoria']
-        _peso = _json['peso']
-        _disponibilidade = _json['disponibilidade']
-        _valor = _json['valor']
+        _codigodebarras = _json['codigodebarras']
+        _descricao_produto = _json['descricao_produto']
+        _marca_produto = _json['marca_produto']
+        _nome_mercado = _json['nome_mercado']
+        _valor_produto = _json['valor_produto']
 
-        if _id_fabricante and _codigodebarras and _nome_produto and _categoria and _peso and _disponibilidade and _valor and request.method == 'PUT':			
-            sqlQuery = "UPDATE produtos SET id_fabricante=%s, codigodebarras=%s, nome_produto=%s, categoria=%s, peso=%s, disponibilidade=%s, valor=%s WHERE id_produto=%s"
-            bindData = (_id_fabricante, _codigodebarras, _nome_produto, _categoria, _peso, _disponibilidade, _valor, _id_produto)
+        if _categoria and _codigodebarras and _descricao_produto and _marca_produto and _nome_mercado and _valor_produto and request.method == 'PUT':			
+            sqlQuery = "UPDATE produtos SET categoria=%s, codigodebarras=%s, descricao_produto=%s, marca_produto=%s, nome_mercado=%s, valor_produto=%s WHERE id_produto=%s"
+            bindData = (_categoria, _codigodebarras, _descricao_produto, _marca_produto, _nome_mercado, _valor_produto, _id_produto)
             conn = mysql.connect()
             cursor = conn.cursor()
             cursor.execute(sqlQuery, bindData)
