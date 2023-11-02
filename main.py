@@ -3,6 +3,7 @@ from app import app
 from config import mysql
 from flask import jsonify, request
 
+
 @app.route('/consultar', methods=['GET'])
 def consultar():
     try:
